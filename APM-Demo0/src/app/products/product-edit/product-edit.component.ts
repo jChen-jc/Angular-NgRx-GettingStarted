@@ -7,7 +7,7 @@ import { Product } from '../product';
 import { GenericValidator } from '../../shared/generic-validator';
 import { NumberValidators } from '../../shared/number.validator';
 import { Store } from '@ngrx/store';
-import { getCurrentProduct, State } from '../state/product.reducer';
+import { getCurrentProduct, State } from '../state';
 import { clearCurrentProduct, createProduct, removeProduct, setCurrentProduct, updateProduct } from '../state/product.actions';
 import { tap } from 'rxjs/operators';
 

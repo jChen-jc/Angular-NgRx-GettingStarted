@@ -4,10 +4,6 @@ import { Product } from "../product";
 import * as AppState from '../../state/app.state';
 import * as productActions from './product.actions';
 
-export interface State extends AppState.State {
-    products: ProductState
-}
-
 export interface ProductState {
     showProductCode: boolean;
     currentProductId: number | null;
@@ -80,25 +76,3 @@ export const productReducer = createReducer<ProductState>(
         error: initialState.error
     })),
 )
-
-const getProductFeatureState = createFeatureSelector<ProductState>('products');
-
-export const getShowProductCode = createSelector(getProductFeatureState, state => state.showProductCode);
-export const getCurrentProductId = createSelector(getProductFeatureState, state => state.currentProductId);
-export const getProducts = createSelector(getProductFeatureState, state => state.products);
-export const getLoadProductError = createSelector(getProductFeatureState, state => state.error);
-
-export const getCurrentProduct = createSelector(getProductFeatureState, getCurrentProductId, (state, currentId) => {
-    if (currentId === 0) {
-        return {
-            id: 0,
-            productName: '',
-            productCode: 'New',
-            description: '',
-            starRating: 0
-        }
-    }
-
-    console.log(" state.products",  state.products, currentId)
-    return currentId ? state.products.find(product => product.id === currentId) : null;
-});
