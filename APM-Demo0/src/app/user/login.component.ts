@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-
+import { State } from '../state/app.state';
+import { getMaskUsername } from './store/user.reducer';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -14,15 +15,10 @@ export class LoginComponent implements OnInit {
 
   maskUserName: boolean;
 
-  constructor(private authService: AuthService, private router: Router, private store: Store<any>) { }
+  constructor(private authService: AuthService, private router: Router, private store: Store<State>) { }
 
   ngOnInit(): void {
-    this.store.select('users').subscribe(users => {
-      if (users) {
-        console.log("users", users)
-        this.maskUserName = users.showMaskUserName
-      }
-    })
+    this.store.select(getMaskUsername).subscribe(showMaskUserName => this.maskUserName = showMaskUserName)
   }
 
   cancel(): void {
